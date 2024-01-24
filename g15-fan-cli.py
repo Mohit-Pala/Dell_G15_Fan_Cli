@@ -1,3 +1,4 @@
+import pexpect
 import sys
 
 def parseAgrs():
@@ -33,6 +34,33 @@ def parseAgrs():
         print('To be used with a system arg, printing help menu')
         printHelp()
     
+# Fan modes
+def perfMode():
+    notify_send('Activating performance mode')
+    
+
+def balancedMode():
+    pass
+
+def quietMode():
+    pass
+
+def GMode():
+    pass 
+
+def executeAcpiCall(command):
+    tmpShell = pexpect.spawn('pkexec bash', encoding='utf-8', logfile=sys.stdout)
+    tmpShell.expect("[#$]")
+    tmpShell.sendline(command)
+    tmpShell.expect("[#$]")
+
+def notify_send(message):
+    message = '"' + message + '"'
+    notify = pexpect.spawn('bash', encoding='utf-8', logfile=sys.stdout)
+    notify.expect("[#$]")
+    notify.sendline(str('notify-send -a "Fan Status" -t 5000 ' + message))
+    notify.expect("[#$]")
+    notify.close()
 
 def printHelp():
     print('Usage:')
