@@ -24,7 +24,7 @@ def parseAgrs():
         elif sys.argv[1].lower().startswith('g'):
             GMode()
 
-        elif sys.argv[1].lower().startswith('s'):
+        elif sys.argv[1].lower().startswith('z'):
             queryGMode()
 
         else:
@@ -42,30 +42,38 @@ def parseAgrs():
 def perfMode():
     # Performance mode
     # "\_SB.AMW3.WMAX 0 0x15 {0x01, 0xa1, 0x00, 0x00}"
-    str('echo "\\_SB.AMW3.WMAX 0 0x15 {0x01, 0xa1, 0x00, 0x00}" > /proc/acpi/call')
+    prelimChecks()
     notify_send('Activating performance mode')
+    executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x15 {1, 0xa1, 0x00, 0x00}" > /proc/acpi/call')
 
 
 def balancedMode():
     # Balanced mode
     # "\_SB.AMW3.WMAX 0 0x15 {0x01, 0xa0, 0x00, 0x00}"
+    prelimChecks()
     notify_send('Activating balanced mode')
+    executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x15 {1, 0xa0, 0x00, 0x00}" > /proc/acpi/call')
 
 
 def quietMode():
     # Quiet mode
     # "\_SB.AMW3.WMAX 0 0x15 {0x01, 0xa3, 0x00, 0x00}"
+    prelimChecks()
     notify_send('Activating quiet mode')
+    executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x15 {1, 0xa3, 0x00, 0x00}" > /proc/acpi/call')
 
 
 def GMode():
     # Gmode
     # "\_SB.AMW3.WMAX 0 0x15 {1, 0xab, 0x00, 0x00}"
     # "\_SB.AMW3.WMAX 0 0x25 {1, 0x01, 0x00, 0x00}"
-
     if (queryGMode()):
         notify_send('Deactivating GMode\nActivating balanced mode')
+        executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x15 {1, 0xa0, 0x00, 0x00}" > /proc/acpi/call')
+        executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x25 {1, 0x00, 0x00, 0x00}" > /proc/acpi/call')
     else:
+        executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x15 {1, 0xab, 0x00, 0x00}" > /proc/acpi/call')
+        executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x25 {1, 0x01, 0x00, 0x00}" > /proc/acpi/call')
         notify_send('Activating GMode')
 
 
@@ -88,7 +96,7 @@ def queryGMode():
 # check if acpi call is loaded
 def prelimChecks():
     elevate()
-    executeAcpiCall('lsmod | grep -i acpi')
+    executeAcpiCall('lsmod | grep -i acpi_call')
     if tmpShell.before.find('acpi_call') > 0:
         pass
     else:
