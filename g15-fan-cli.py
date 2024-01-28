@@ -85,11 +85,9 @@ def queryGMode():
         'echo "\\_SB.AMW3.WMAX 0 0x14 {0x0b, 0x00, 0x00, 0x00}" > /proc/acpi/call; cat /proc/acpi/call')
     if tmpShell.before.find('0xab') > 0:
         # fan on
-        notify_send('Fan On')
         return True
     else:
         # fan off
-        notify_send('Fan Off')
         return False
 
 
