@@ -20,7 +20,7 @@ Game shift is a switch between GMode and Balanced mode, that's how it is in the 
 2. Move it to `~/.local/bin` or any directory
 3. Run the following command: `python ~/.local/bin/g15-fan-cli.py <mode>`
 
-Replace <mode> with one of the following options:
+Replace `<mode>` with one of the following options:
 - `b  `       Balanced mode
 - `p  `       Performance mode
 - `q  `       Quiet mode
