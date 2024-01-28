@@ -1,7 +1,0 @@
-[Desktop Entry]
-Exec=bash ~/.local/bin/g15-fan-wrapper.sh
-Name=bash ~/.local/bin/g15-fan-wrapper.sh
-NoDisplay=true
-StartupNotify=false
-Type=Application
-X-KDE-GlobalAccel-CommandShortcut=true
