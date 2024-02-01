@@ -17,7 +17,9 @@ Curretnly tested on the following models:
 
 # Intel users:
 Use a text editor to find a replace
+
 Find -> `AMW3`
+
 Replace with -> `AMWW`
 
 # Requirements:
