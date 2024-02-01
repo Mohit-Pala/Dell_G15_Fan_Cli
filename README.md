@@ -1,11 +1,24 @@
-# Dell g15 fan cli
-## A command-line tool to adjust fan speed on Dell g15-5535 (AMD) and g15-5525 (AMD) laptops
+# Dell G15 fan cli
+## A command-line tool to adjust fan speed on Dell G15 series of laptops
 
-This tool lets you modify the fan status on Dell g15-5535 and g15-5525 laptops using ACPI commands.
+This tool lets you modify the fan status on Dell G15 series of laptops using ACPI commands.
 
-It should also work on g15-5525(AMD) because the archwiki has instructions for this model
+G-Mode is a toggle between Game shift and Balanced mode, that's how it is in the archwiki
 
-Game shift is a switch between GMode and Balanced mode, that's how it is in the archwiki
+Curretnly tested on the following models:
+
+|  Model             |  Status            |
+|--------------------|--------------------|
+|  G15-5535 (AMD)    |  Works-Tested      |
+|  G15-5525 (AMD)    |  Works-Archwiki    |
+|  G15-5520 (Intel)  |  Works-Archwiki    |
+|  G15-5511 (Intel)  |  Works-Tested      |
+
+
+# Intel users:
+Use a text editor to find a replace
+Find -> `AMW3`
+Replace with -> `AMWW`
 
 # Requirements:
 - ACPI_CALL or ACPI_CALL-DKMS kernel module 
@@ -13,7 +26,6 @@ Game shift is a switch between GMode and Balanced mode, that's how it is in the 
 - python-pexpect
 - bash shell
 - pkexec: root privileges, can replace with sudo if running from a terminal
-
 
 # Usage
 1. Git clone this repo or download the python file
@@ -24,7 +36,7 @@ Replace `<mode>` with one of the following options:
 - `b  `       Balanced mode
 - `p  `       Performance mode
 - `q  `       Quiet mode
-- `g  `      Game Shift mode, switch between balanced and GMode
+- `g  `       G-Mode, switch between balanced and Game Shift mode
 - `h  `       Help menu
 
 # Bind to F9 key
