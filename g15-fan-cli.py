@@ -51,8 +51,10 @@ def balancedMode():
     # Balanced mode
     # "\_SB.AMW3.WMAX 0 0x15 {0x01, 0xa0, 0x00, 0x00}"
     prelimChecks()
-    notify_send('Activating balanced mode')
+    notify_send('Activating balanced mode\nActivating powersave cpu governer')
     executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x15 {1, 0xa0, 0x00, 0x00}" > /proc/acpi/call')
+    executeAcpiCall('echo powersave > /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor')
+
 
 
 def quietMode():
@@ -68,13 +70,17 @@ def GMode():
     # "\_SB.AMW3.WMAX 0 0x15 {1, 0xab, 0x00, 0x00}"
     # "\_SB.AMW3.WMAX 0 0x25 {1, 0x01, 0x00, 0x00}"
     if (queryGMode()):
-        notify_send('Deactivating GMode\nActivating balanced mode')
+        notify_send('Deactivating GMode\nActivating balanced mode\nActivating powersave cpu governer')
         executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x15 {1, 0xa0, 0x00, 0x00}" > /proc/acpi/call')
         executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x25 {1, 0x00, 0x00, 0x00}" > /proc/acpi/call')
+        executeAcpiCall('echo powersave > /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor')
+
     else:
+        notify_send('Activating GMode\nActivating performance cpu governer')
         executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x15 {1, 0xab, 0x00, 0x00}" > /proc/acpi/call')
         executeAcpiCall('echo "\\_SB.AMW3.WMAX 0 0x25 {1, 0x01, 0x00, 0x00}" > /proc/acpi/call')
-        notify_send('Activating GMode')
+        executeAcpiCall('echo performance > /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor')
+        
 
 
 def queryGMode():
@@ -94,7 +100,7 @@ def queryGMode():
 # check if acpi call is loaded
 def prelimChecks():
     elevate()
-    executeAcpiCall('lsmod | grep -i acpi_call')
+    executeAcpiCall('lsmod')
     if tmpShell.before.find('acpi_call') > 0:
         pass
     else:
