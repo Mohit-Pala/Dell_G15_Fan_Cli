@@ -10,6 +10,7 @@ Curretnly tested on the following models:
 |  Model             |  Status            |
 |--------------------|--------------------|
 |  G15-5535 (AMD)    |  Works-Tested      |
+|  G15-5530 (Intel)  |  Works-Tested      |
 |  G15-5525 (AMD)    |  Works-Archwiki    |
 |  G15-5520 (Intel)  |  Works-Archwiki    |
 |  G15-5511 (Intel)  |  Works-Tested      |
