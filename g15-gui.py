@@ -17,7 +17,7 @@ from PyQt6.QtGui import QIcon, QFont
 
 # --- CONFIGURATION ---
 # This path has been updated to the correct location you specified.
-G15_CLI_SCRIPT_PATH = "/home/biswas/.local/bin/g15-fan-cli.py"
+G15_CLI_SCRIPT_PATH = "/home/user/.local/bin/g15-fan-cli.py" #change this to your actual path if different
 # ---------------------
 
 
