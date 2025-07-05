@@ -1,52 +1,91 @@
-# Dell G15 fan cli
-## A command-line tool to adjust fan speed on Dell G15 series of laptops
-
-This tool lets you modify the fan status on Dell G15 series of laptops using ACPI commands.
-
-G-Mode is a toggle between Game shift and Balanced mode, that's how it is in the archwiki
-
-Curretnly tested on the following models:
-
-|  Model             |  Status            |
-|--------------------|--------------------|
-|  G15-5535 (AMD)    |  Works-Tested      |
-|  G15-5525 (AMD)    |  Works-Archwiki    |
-|  G15-5520 (Intel)  |  Works-Archwiki    |
-|  G15-5511 (Intel)  |  Works-Tested      |
 
 
-# Intel users:
-Use a text editor to find a replace
+# Dell G15 Fan CLI
 
-Find -> `AMW3`
+A command-line tool and optional GUI to adjust fan speed on Dell G15 series of laptops.
 
-Replace with -> `AMWW`
+This tool lets you modify the fan status on Dell G15 series of laptops using ACPI commands. G-Mode is a toggle between Game Shift and Balanced mode, as documented in the ArchWiki.
 
-# Requirements:
-- ACPI_CALL or ACPI_CALL-DKMS kernel module 
-- python
-- python-pexpect
+## Tested Models
+
+| Model            | Status               |
+|------------------|----------------------|
+| G15-5535 (AMD)  | Works-Tested         |
+| G15-5525 (AMD)  | Works-Archwiki       |
+| G15-5520 (Intel)| Works-Archwiki       |
+| G15-5511 (Intel)| Works-Tested         |
+
+**Note for Intel Users:**  
+If you encounter issues, you may need to edit `g15-fan-cli.py` with a text editor and replace all instances of `AMW3` with `AMWW`.
+
+## Features
+
+- **Command-Line Interface**: Control fan modes directly from your terminal.
+- **Optional GUI Dashboard**: A graphical interface to monitor system stats (CPU Temp, RAM, Fan RPM, Battery Health) and control fan modes with a single click.
+
+<!-- It's recommended to take a screenshot of the GUI and upload it -->
+
+## Requirements
+
+### For Both CLI and GUI
+- `acpi_call` or `acpi_call-dkms` kernel module
+- Python 3
+- `python3-pexpect`
+- `pkexec` for root privileges (can be replaced with `sudo` if running from a terminal)
 - bash shell
-- pkexec: root privileges, can replace with sudo if running from a terminal
 
-# Usage
-1. Git clone this repo or download the python file
-2. Move it to `~/.local/bin` or any directory
-3. Run the following command: `python ~/.local/bin/g15-fan-cli.py <mode>`
+### Additional for GUI
+- `python3-pyqt6`
+- `python3-psutil`
 
-Replace `<mode>` with one of the following options:
-- `b  `       Balanced mode
-- `p  `       Performance mode
-- `q  `       Quiet mode
-- `g  `       G-Mode, switch between balanced and Game Shift mode
-- `h  `       Help menu
+## Installation of Dependencies
 
-# Bind to F9 key
-## On KDE Desktop
-1. Go to System settings -> workspaces -> shortcuts -> add command
-2. Type `konsole -e python ~/.local/bin/g15-fan-cli.py g`
-3. Select the newly created command -> add custom shortcut -> bind to f9 -> apply
+**On Debian/Ubuntu and derivatives:**
+```bash
+sudo apt update
+sudo apt install acpi-call-dkms python3-pexpect python3-pyqt6 python3-psutil
+```
 
-# References
-- The Game shift ACPI commands were taken from the Archwiki page for Dell g15-5525: https://wiki.archlinux.org/title/Dell_G15_5525
-- Used Dell-G15-Controller GitHub repository to extract the rest of the ACPI commands: https://github.com/cemkaya-mpi/Dell-G15-Controller
+**On Arch Linux and derivatives:**
+```bash
+sudo pacman -Syu acpi_call python-pexpect python-pyqt6 python-psutil
+```
+
+## Usage
+
+### 1. Command-Line Interface (CLI)
+1. Clone this repository or download the `g15-fan-cli.py` file.
+2. Move it to `~/.local/bin` or another directory in your `PATH`.
+3. Make it executable: `chmod +x ~/.local/bin/g15-fan-cli.py`
+4. Run the following command:
+   ```bash
+   g15-fan-cli.py <mode>
+   ```
+   Replace `<mode>` with one of the following options:
+   - `b`: Balanced mode
+   - `p`: Performance mode
+   - `q`: Quiet mode
+   - `g`: G-Mode (toggles between Game Shift and Balanced)
+   - `h`: Help menu
+
+### 2. Graphical User Interface (GUI)
+1. Ensure all dependencies (CLI and GUI) are installed.
+2. Place both `g15-fan-cli.py` and `g15-gui.py` in the same directory (e.g., `~/.local/bin`).
+3. Make the GUI script executable: `chmod +x ~/.local/bin/g15-gui.py`
+4. Launch the GUI by running:
+   ```bash
+   g15-gui.py
+   ```
+
+### Keybinding (Example for Ubuntu/GNOME)
+You can bind the GUI or a CLI command to a keyboard shortcut for quick access.
+
+1. Go to `Settings -> Keyboard -> View and Customize Shortcuts -> Custom Shortcuts`.
+2. Click `Add Shortcut`.
+3. Name: `Dell G15 Control`
+4. Command: `/home/your-username/.local/bin/g15-gui.py` (to launch the GUI) OR `/home/your-username/.local/bin/g15-fan-cli.py g` (to toggle G-Mode).
+5. Shortcut: Set your desired key combination (e.g., `F9` or `Super+F`).
+
+## References
+- The Game Shift ACPI commands were taken from the [ArchWiki page for Dell G15 5525](https://wiki.archlinux.org/title/Dell_G15_5525).
+- The rest of the ACPI commands were extracted from the [Dell-G15-Controller GitHub repository](https://github.com/...).
