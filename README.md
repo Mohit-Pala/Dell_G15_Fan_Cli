@@ -6,14 +6,15 @@ A command-line tool and optional GUI to adjust fan speed on Dell G15 series of l
 
 This tool lets you modify the fan status on Dell G15 series of laptops using ACPI commands. G-Mode is a toggle between Game Shift and Balanced mode, as documented in the ArchWiki.
 
-## Tested Models
 
-| Model            | Status               |
-|------------------|----------------------|
-| G15-5535 (AMD)  | Works-Tested         |
-| G15-5525 (AMD)  | Works-Archwiki       |
-| G15-5520 (Intel)| Works-Archwiki       |
-| G15-5511 (Intel)| Works-Tested         |
+## Tested Models
+|  Model             |  Status            |
+|--------------------|--------------------|
+|  G15-5535 (AMD)    |  Works-Tested      |
+|  G15-5530 (Intel)  |  Works-Tested      |
+|  G15-5525 (AMD)    |  Works-Archwiki    |
+|  G15-5520 (Intel)  |  Works-Archwiki    |
+|  G15-5511 (Intel)  |  Works-Tested      |
 
 **Note for Intel Users:**  
 If you encounter issues, you may need to edit `g15-fan-cli.py` with a text editor and replace all instances of `AMW3` with `AMWW`.
@@ -22,8 +23,6 @@ If you encounter issues, you may need to edit `g15-fan-cli.py` with a text edito
 
 - **Command-Line Interface**: Control fan modes directly from your terminal.
 - **Optional GUI Dashboard**: A graphical interface to monitor system stats (CPU Temp, RAM, Fan RPM, Battery Health) and control fan modes with a single click.
-
-<!-- It's recommended to take a screenshot of the GUI and upload it -->
 
 ## Requirements
 
